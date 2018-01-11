@@ -1,13 +1,17 @@
+
 import json
 from os import makedirs
 from os.path import join, isfile
 from random import randint
 from time import sleep
+from urllib.error import URLError
 from urllib.parse import quote
 from urllib.request import urlopen, urlretrieve
 
 from django.conf import settings
 from django.core.management.base import BaseCommand
+
+
 from 匯入到臺灣言語資料庫.族語辭典 import 代碼對應
 
 
@@ -62,7 +66,7 @@ class Command(BaseCommand):
                     print('掠 {} …'.format(所在))
                     try:
                         urlretrieve(quote(網址, safe='/:'), 所在)
-                    except:
+                    except URLError:
                         pass
                     else:
                         break

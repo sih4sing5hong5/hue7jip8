@@ -70,9 +70,12 @@ class Command(BaseCommand):
             if 音檔路徑.endswith('.wav'):
                 try:
                     音檔編號 = int(basename(音檔路徑).split('.')[0])
+                except ValueError:
+                    raise ValueError('有的音檔有重錄過')
+                try:
                     (漢字, 拼音) = 詞目[音檔編號]
-                except:  # 有的詞條尾仔提掉矣，親像編號5
-                    pass
+                except KeyError:  # 有的詞條尾仔提掉矣，親像編號5
+                    continue
                 else:
                     影音內容 = {'影音所在': 音檔路徑}
                     影音內容.update(公家內容)
